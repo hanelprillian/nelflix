@@ -1,41 +1,42 @@
 import {useState} from 'react';
-import {IFormChangeOptions} from "./types";
+import {IFormFieldChangeOptions, IFormFieldPayload} from "./types";
 
 export default function useForm(initialPayload : object) {
-  const [states, setStates] = useState<object>({...initialPayload});
-  const [errors, setErrors] = useState<object | null>(null);
-  function handleValidate (key: string, options : IFormChangeOptions) {
-    let isValidate : boolean = true
-    const fieldErrors : string[] = []
+  const [states, setStates] = useState<IFormFieldPayload>({...initialPayload});
+  const [errors, setErrors] = useState<IFormFieldPayload | null>(null);
 
-    if(typeof options.type !== 'undefined') {
-      if(options.type === 'email') {
-        const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-
-        // @ts-ignore
-        const email = states[key]
-
-        if(email) {
-          if(!regex.test(email.trim())) {
-            fieldErrors.push('Please Input Correct Email!')
-            isValidate = false
-          }
-        }
-      }
-    }
-
-    return [isValidate, fieldErrors] as const
-  }
-  function handleChange (key : string, value : any, options? : IFormChangeOptions) {
+  function handleChange (key : string, value : any, options? : IFormFieldChangeOptions) {
     setStates({
       ...states,
       [key] : value
     })
 
     if(typeof options !== 'undefined') {
-      const [, fieldErrors] = handleValidate(key, options)
+      const fieldErrors : string[] = []
+
+      if(typeof options.rules !== 'undefined') {
+        const rules = options.rules.split('|')
+        for(const rule of rules) {
+          if(rule === 'required') {
+            if(typeof value === 'undefined' || value === '' || value === null) {
+              fieldErrors.push('This field is required!')
+            }
+          }
+          if(rule === 'email') {
+            const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+
+            if(value) {
+              if(!regex.test(value.toString().trim())) {
+                fieldErrors.push('Please Input Correct Email!')
+              }
+            }
+          }
+        }
+      }
+
       setErrors({...errors, [key] : fieldErrors})
     }
   }
+
   return [handleChange, states, errors] as const;
 }

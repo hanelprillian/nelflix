@@ -1,3 +1,6 @@
-export interface IFormChangeOptions {
-  type?: string
+export interface IFormFieldChangeOptions {
+  rules?: string
+}
+export interface IFormFieldPayload {
+  [key: string]: IFormFieldPayload | any;
 }

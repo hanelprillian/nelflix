@@ -4,9 +4,16 @@ import useForm from "../hooks/useForm";
 import {useEffect} from "react";
 
 function Login () {
-  const [handleChange, states, errors] = useForm({
+  const [handleFieldChange, states, errors] = useForm({
     email: ''
   })
+  function handleErrors(key : string) {
+    if(errors && typeof errors[key] !== 'undefined') {
+      return errors[key]
+    }
+
+    return []
+  }
   useEffect(() => {
     console.log('states errors', errors)
   }, [errors])
@@ -14,15 +21,16 @@ function Login () {
     <AuthLayout title="Masuk">
       <form>
         <TextField
+          value={states.email}
+          error={handleErrors('email').length > 0}
           fullWidth
           required
           type="email"
           label="Email"
-          onChange={e => handleChange('email', e.target.value, {
-            type: 'email'
+          onChange={e => handleFieldChange('email', e.target.value, {
+            rules: 'required|email'
           })}
           placeholder="Masukkan Email"
-          defaultValue=""
           margin="normal"
         />
         <TextField
