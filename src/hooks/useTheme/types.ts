@@ -1,7 +1,7 @@
-export interface IArticleNavigations {
-    key?: string,
-    title: any,
-    description?: string,
-    image?: string,
-    imageMobile?: string,
+import {Palette, PaletteMode, Theme} from "@mui/material";
+
+export interface ITheme {
+    theme: Theme,
+    mode: PaletteMode,
+    palette: Palette
 }

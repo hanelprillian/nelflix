@@ -1,16 +1,17 @@
-import {ReactNode, useEffect} from "react";
-import {CenterBox, BodyLayout, BodyContainer} from "./styles"
+import {ReactNode} from "react";
+import {CenterBox, BodyLayout, BodyContainer, Title} from "./styles"
+import {Slide} from "@mui/material";
 
-function AuthLayout ({children} : {children: ReactNode}) {
-  useEffect(() => {
-    // document.body.style.backgroundColor = 'red'
-  }, [])
+function AuthLayout ({title, children} : {title: string ,children: ReactNode}) {
   return (
     <BodyLayout>
       <BodyContainer>
-        <CenterBox>
-          {children}
-        </CenterBox>
+        <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+          <CenterBox>
+            <Title>{title}</Title>
+            {children}
+          </CenterBox>
+        </Slide>
       </BodyContainer>
     </BodyLayout>
   )

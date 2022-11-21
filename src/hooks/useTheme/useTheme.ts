@@ -1,17 +1,18 @@
-import {PaletteMode, useMediaQuery} from '@mui/material';
+import {useMediaQuery} from '@mui/material';
 import {useMemo, useEffect, useState} from 'react';
 import { createTheme } from '@mui/material';
 import InterRegularFont from '../../assets/fonts/inter/Inter-Regular.ttf';
+import {ITheme} from "./types";
 
-export default function useTheme() {
+export default function useTheme(): readonly [ITheme['theme'], ((key: ITheme["mode"]) => void), ITheme['mode']] {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState<PaletteMode>('dark');
-  const [nodeLocalStorage, setNodeLocalStorage] = useState<PaletteMode>('dark');
+  const [mode, setMode] = useState<ITheme['mode']>('dark');
+  const [nodeLocalStorage, setNodeLocalStorage] = useState<ITheme['mode']>('dark');
 
   useEffect(() => {
     const theme = localStorage.getItem('APP_THEME_CUSTOM_SELECT');
     if(typeof theme !== 'undefined' && theme !== null) {
-      setNodeLocalStorage(theme as PaletteMode);
+      setNodeLocalStorage(theme as ITheme['mode']);
     }
   }, []);
 
@@ -27,7 +28,7 @@ export default function useTheme() {
     }
   }, [nodeLocalStorage]);
 
-  const theme = useMemo(
+  const theme : ITheme['theme'] = useMemo(
     () => {
       const BLACK_COLOR = '#28272F';
       const WHITE_COLOR = '#F8F8F8';
@@ -75,7 +76,7 @@ export default function useTheme() {
     [mode],
   );
 
-  function setTheme(key : PaletteMode) {
+  function setTheme(key : ITheme['mode']) {
     localStorage.setItem('APP_THEME_CUSTOM_SELECT', key);
     setMode(key);
   }

@@ -1,12 +1,12 @@
 import AuthLayout from "../components/layouts/Auth";
 import {Button} from "@mui/material";
 
-function Index () {
+function Login () {
   return (
-    <AuthLayout>
+    <AuthLayout title="Login">
       asas
     </AuthLayout>
   )
 }
 
-export default Index
+export default Login

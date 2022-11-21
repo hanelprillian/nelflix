@@ -4,7 +4,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import IndexPage from './pages/index';
+import LoginPage from './pages/login';
 import useTheme from "./hooks/useTheme";
 import {IContext, Context} from "./utils/context";
 import {CssBaseline, PaletteMode} from "@mui/material";
@@ -28,7 +28,7 @@ function App() {
         <CssBaseline />
         <div>
           <Routes>
-            <Route path="/" element={<IndexPage/>} />
+            <Route path="/" element={<LoginPage/>} />
           </Routes>
         </div>
       </ThemeProvider>
