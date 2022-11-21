@@ -1,3 +1,3 @@
-export interface IForm {
-
+export interface IFormChangeOptions {
+  type?: string
 }

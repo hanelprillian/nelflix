@@ -4,7 +4,7 @@ import { createTheme } from '@mui/material';
 import InterRegularFont from '../../assets/fonts/inter/Inter-Regular.ttf';
 import {ITheme} from "./types";
 
-export default function useTheme(): readonly [ITheme['theme'], ((key: ITheme["mode"]) => void), ITheme['mode']] {
+export default function useTheme() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState<ITheme['mode']>('dark');
   const [nodeLocalStorage, setNodeLocalStorage] = useState<ITheme['mode']>('dark');

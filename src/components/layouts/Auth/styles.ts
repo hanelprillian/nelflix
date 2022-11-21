@@ -9,13 +9,13 @@ export const BodyLayout = styled("div")(({ theme }) => ({
 }));
 export const BodyContainer = styled("div")(({ theme }) => ({
   height: '100vh',
-  background: 'rgba(19,19,19,0.38)',
+  background: 'rgba(19,19,19,0.5)',
   display: 'flex',
   alignItems: 'start',
   justifyContent: 'center',
 }));
 export const CenterBox = styled("div")(({ theme }) => ({
-  minWidth: 450,
+  width: 500,
   marginTop: '200px',
   padding: '60px 68px 40px',
   background: theme.palette.mode === 'light' ? 'rgba(255,255,255,.75)' : 'rgba(0,0,0,.75)',
@@ -25,4 +25,10 @@ export const Title = styled("h2")(({ theme }) => ({
   fontWeight: 600,
   marginTop: 0,
   marginBottom: 28,
+}));
+export const Logo = styled("img")(({ theme }) => ({
+  position: 'absolute',
+  width: 200,
+  marginTop: 10,
+  marginLeft: 10,
 }));
