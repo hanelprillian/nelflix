@@ -31,6 +31,14 @@ export default function useForm(initialPayload : object) {
               }
             }
           }
+          if(rule.includes(':')) {
+            const [subRuleKey, subRuleValue] = rule.split(':')
+            if(subRuleKey === 'min') {
+              if(value && value.length < Number(subRuleValue)) {
+                fieldErrors.push(`Minimum value is ${Number(subRuleValue)}`)
+              }
+            }
+          }
         }
       }
 

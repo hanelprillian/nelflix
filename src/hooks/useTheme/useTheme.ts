@@ -32,6 +32,7 @@ export default function useTheme() {
     () => {
       const BLACK_COLOR = '#28272F';
       const WHITE_COLOR = '#F8F8F8';
+      const RED_COLOR = 'rgb(229, 9, 20)';
 
       const palette = {
         background: {
@@ -41,6 +42,22 @@ export default function useTheme() {
           primary: WHITE_COLOR,
         },
       };
+      const components = {
+        MuiCssBaseline: {
+          styleOverrides: `
+        @font-face {
+          font-family: 'Intern Regular';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: url(${InterRegularFont}) format('ttf');
+        }
+      `,
+        },
+        MuiButton: {
+
+        }
+      }
 
       if (mode === 'dark') {
         palette.text.primary = WHITE_COLOR;
@@ -58,19 +75,7 @@ export default function useTheme() {
         typography: {
           fontFamily: 'Intern Regular, Arial',
         },
-        components: {
-          MuiCssBaseline: {
-            styleOverrides: `
-        @font-face {
-          font-family: 'Intern Regular';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 400;
-          src: url(${InterRegularFont}) format('ttf');
-        }
-      `,
-          },
-        },
+        components
       });
     },
     [mode],

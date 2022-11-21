@@ -17,7 +17,7 @@ export const BodyContainer = styled("div")(({ theme }) => ({
 export const CenterBox = styled("div")(({ theme }) => ({
   width: 500,
   marginTop: '200px',
-  padding: '60px 68px 40px',
+  padding: '60px 68px',
   background: theme.palette.mode === 'light' ? 'rgba(255,255,255,.75)' : 'rgba(0,0,0,.75)',
 }));
 export const Title = styled("h2")(({ theme }) => ({
