@@ -1,15 +1,18 @@
-import { ReactNode } from "react";
-import {useStyles} from "./styles";
+import {ReactNode, useEffect} from "react";
+import {CenterBox, BodyLayout, BodyContainer} from "./styles"
 
 function AuthLayout ({children} : {children: ReactNode}) {
-  const styles = useStyles();
+  useEffect(() => {
+    // document.body.style.backgroundColor = 'red'
+  }, [])
   return (
-    <>
-      <div className={styles.bannerPage}>
-
-      </div>
-      {children}
-    </>
+    <BodyLayout>
+      <BodyContainer>
+        <CenterBox>
+          {children}
+        </CenterBox>
+      </BodyContainer>
+    </BodyLayout>
   )
 }
 

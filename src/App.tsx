@@ -7,7 +7,7 @@ import {
 import IndexPage from './pages/index';
 import useTheme from "./hooks/useTheme";
 import {IContext, Context} from "./utils/context";
-import {PaletteMode} from "@mui/material";
+import {CssBaseline, PaletteMode} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
   return (
     <Context.Provider value={context}>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <div>
           <Routes>
             <Route path="/" element={<IndexPage/>} />
