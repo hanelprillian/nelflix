@@ -5,6 +5,7 @@ import {
   Routes
 } from "react-router-dom";
 import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
 import useTheme from "./hooks/useTheme";
 import {IContext, Context} from "./utils/context";
 import {CssBaseline, PaletteMode} from "@mui/material";
@@ -31,6 +32,7 @@ function App() {
           <FirebaseContainer>
             <Routes>
               <Route path="/" element={<LoginPage/>} />
+              <Route path="/register" element={<RegisterPage/>} />
             </Routes>
           </FirebaseContainer>
         </div>
