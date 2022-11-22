@@ -9,6 +9,7 @@ import useTheme from "./hooks/useTheme";
 import {IContext, Context} from "./utils/context";
 import {CssBaseline, PaletteMode} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
+import FirebaseContainer from "./components/commons/FirebaseContainer";
 
 function App() {
   const [theme, setTheme] = useTheme();
@@ -27,9 +28,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div>
-          <Routes>
-            <Route path="/" element={<LoginPage/>} />
-          </Routes>
+          <FirebaseContainer>
+            <Routes>
+              <Route path="/" element={<LoginPage/>} />
+            </Routes>
+          </FirebaseContainer>
         </div>
       </ThemeProvider>
     </Context.Provider>
