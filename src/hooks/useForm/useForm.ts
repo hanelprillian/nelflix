@@ -22,6 +22,7 @@ export default function useForm(initialPayload : object) {
               fieldErrors.push('This field is required!')
             }
           }
+
           if(rule === 'email') {
             const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
@@ -31,11 +32,19 @@ export default function useForm(initialPayload : object) {
               }
             }
           }
+
           if(rule.includes(':')) {
             const [subRuleKey, subRuleValue] = rule.split(':')
             if(subRuleKey === 'min') {
               if(value && value.length < Number(subRuleValue)) {
                 fieldErrors.push(`Minimum value is ${Number(subRuleValue)}`)
+              }
+            } else if(subRuleKey === 'confirm') {
+              const firstField = value
+              const secondField = states[subRuleValue]
+
+              if((firstField && secondField) && (firstField !== secondField)) {
+                fieldErrors.push(`Field must be same as ${subRuleValue}`)
               }
             }
           }

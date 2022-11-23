@@ -41,6 +41,7 @@ function LoginPage () {
         await login(states.email, states.password)
         setIsLoginValid(true)
         setLoginLoading(false)
+        return navigate('/console');
       } catch (e) {
         setLoginLoading(false)
         setIsLoginValid(false)
