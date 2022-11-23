@@ -11,7 +11,7 @@ import {IContext, Context, FirebaseContext} from "./utils/context";
 import {CssBaseline, PaletteMode} from "@mui/material";
 import {ThemeProvider} from "@mui/material";
 import FirebaseContainer from "./components/commons/FirebaseContainer";
-import ConsolePage from "./components/pages/ConsolePage/ConsolePage";
+import ConsolePage from "./pages/console";
 
 function App() {
   const [theme, setTheme] = useTheme();

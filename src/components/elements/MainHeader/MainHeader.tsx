@@ -12,18 +12,6 @@ const LINKS = [
     url: '/console',
   },
   {
-    title: 'TV Series',
-    url: '/console/tv',
-  },
-  {
-    title: 'Movies',
-    url: '/console/movies',
-  },
-  {
-    title: 'New & Popular',
-    url: '/console/popular',
-  },
-  {
     title: 'My List',
     url: '/console/my-list',
   }

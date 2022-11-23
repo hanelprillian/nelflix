@@ -1,6 +1,6 @@
 import {TextField} from "@mui/material";
 import useForm from "../../../hooks/useForm";
-import {useMemo, FormEvent, useState} from "react";
+import {useMemo, FormEvent, useState, useEffect} from "react";
 import {AuthButton,RegisterButtonLink,LoginGoogleButton,Divider} from "./styles"
 import {useNavigate} from "react-router-dom";
 import {Alert} from "@mui/lab";
@@ -59,7 +59,6 @@ function LoginPage () {
 
     return isValid
   }, [errors, states])
-
   return (
     <AuthLayout title="Sign In">
       <>
