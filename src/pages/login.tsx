@@ -11,9 +11,9 @@ function Login () {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   // for testing
-  // useEffect(() => {
-  //   signOut(auth)
-  // }, [])
+  useEffect(() => {
+    signOut(auth)
+  }, [])
 
   useEffect(() => {
     setIsLoaded(false)

@@ -30,16 +30,22 @@ export default function useTheme() {
 
   const theme : ITheme['theme'] = useMemo(
     () => {
-      const BLACK_COLOR = '#28272F';
+      const BLACK_COLOR = 'rgba(0,0,0,1)';
       const WHITE_COLOR = '#F8F8F8';
       const RED_COLOR = 'rgb(229, 9, 20)';
 
+      const colors = {
+        black: BLACK_COLOR,
+        white: WHITE_COLOR,
+        red: RED_COLOR,
+      }
       const palette = {
         background: {
-          default: BLACK_COLOR
+          default: colors.black,
         },
         text: {
-          primary: WHITE_COLOR,
+          primary: colors.white,
+
         },
       };
       const components = {
@@ -60,11 +66,11 @@ export default function useTheme() {
       }
 
       if (mode === 'dark') {
-        palette.text.primary = WHITE_COLOR;
-        palette.background.default = BLACK_COLOR;
+        palette.text.primary = colors.white;
+        palette.background.default = colors.black;
       } else if (mode === 'light') {
-        palette.text.primary = BLACK_COLOR;
-        palette.background.default = WHITE_COLOR;
+        palette.text.primary = colors.black;
+        palette.background.default = colors.white;
       }
 
       return createTheme({
@@ -75,7 +81,8 @@ export default function useTheme() {
         typography: {
           fontFamily: 'Intern Regular, Arial',
         },
-        components
+        components,
+        colors
       });
     },
     [mode],

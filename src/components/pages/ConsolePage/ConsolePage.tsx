@@ -1,8 +1,11 @@
+import ConsoleLayout from "../../layouts/Console/ConsoleLayout";
 
 function ConsolePage () {
-  return <>
-    console page
-  </>
+  return (
+    <ConsoleLayout>
+      lro
+    </ConsoleLayout>
+  )
 }
 
 export default ConsolePage

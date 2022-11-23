@@ -5,7 +5,7 @@ import {AuthButton,RegisterButtonLink,LoginGoogleButton,Divider} from "./styles"
 import {useNavigate} from "react-router-dom";
 import {Alert} from "@mui/lab";
 import AuthLayout from "../../layouts/Auth";
-import {login, loginWithGoogle} from "../../../services/firebase/login";
+import {login, loginWithGoogle} from "../../../services/firebase/auth";
 
 function LoginPage () {
   const [loginLoading, setLoginLoading] = useState<boolean>(false)

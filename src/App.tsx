@@ -34,7 +34,9 @@ function App() {
               <Route path="/" element={<LoginPage/>} />
               <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute/>}>
-                <Route path="/console" element={<ConsolePage />} />
+                <Route path="/console">
+                  <Route index element={<ConsolePage />} />
+                </Route>
               </Route>
             </Routes>
           </FirebaseContainer>
@@ -54,8 +56,8 @@ function ProtectedRoute ({ redirectPath = '/' }) {
     if(firebaseInitialised) {
       setIsLoaded(true)
       if(!user) {
-        navigate(redirectPath)
         setIsLoaded(false)
+        navigate(redirectPath)
       }
     }
   }, [firebaseInitialised, user])

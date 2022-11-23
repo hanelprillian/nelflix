@@ -1,13 +1,11 @@
 import {ReactNode} from "react";
-import {BodyLayout} from "./styles"
-import {Slide} from "@mui/material";
 import MainHeader from "../../elements/MainHeader";
-
-function ConsoleLayout () {
+import {BodyLayout} from "./styles"
+function ConsoleLayout ({ children } : {children : ReactNode}) {
   return (
     <BodyLayout>
-      tot
       <MainHeader/>
+      {children}
     </BodyLayout>
   )
 }

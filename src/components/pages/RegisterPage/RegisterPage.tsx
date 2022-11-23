@@ -3,7 +3,7 @@ import {TextField} from "@mui/material";
 import {RegisterButton} from "../RegisterPage/styles";
 import {FormEvent, useMemo, useState} from "react";
 import useForm from "../../../hooks/useForm";
-import {login, register} from "../../../services/firebase/login";
+import {register} from "../../../services/firebase/auth";
 import {useNavigate} from "react-router-dom";
 import {Alert} from "@mui/lab";
 
