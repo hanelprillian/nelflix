@@ -8,6 +8,9 @@ import {
 } from "../../../services/tmdb/apis";
 import {IMovieInfo} from "../../../types/movies";
 import {movieAdapter} from "../../../adapters/movies";
+import {Container, Block, BlockTitle, BlockMovies} from "./styles";
+import CardMovie from "../../elements/CardMovie";
+import {Grid} from "@mui/material";
 
 function ConsolePage () {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -41,7 +44,7 @@ function ConsolePage () {
           }
           setBlocks(oldBlocks => [...oldBlocks, {
             blockName,
-            movies: results.map(movieAdapter)
+            movies: results.filter((d : any,i : number) => i <= 11).map(movieAdapter)
           }])
         })
 
@@ -51,14 +54,28 @@ function ConsolePage () {
     handleFetchGenres()
   }, [])
 
-  useEffect(() => {
-    if(!isLoading) {
-      console.log('blocks', blocks)
-    }
-  }, [isLoading, blocks])
   return (
     <ConsoleLayout>
-      {isLoading ? 'loading...' : 'movies'}
+      {!isLoading && (
+        <>
+          <Container>
+            {blocks.map(block => (
+              <Block key={block.blockName}>
+                <BlockTitle>
+                  {block.blockName}
+                </BlockTitle>
+                <BlockMovies container gap={2} justifyContent="center">
+                  {block.movies.map(movie => (
+                    <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9}>
+                      <CardMovie key={movie.id} movie={movie} />
+                    </Grid>
+                  ))}
+                </BlockMovies>
+              </Block>
+            ))}
+          </Container>
+        </>
+      )}
     </ConsoleLayout>
   )
 }
