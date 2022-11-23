@@ -3,7 +3,7 @@ import {styled} from "@mui/material";
 export const Header = styled("div",{
   shouldForwardProp: (prop) => prop !== "transparent"
 })<{transparent?: boolean}>(({ transparent, theme }) => ({
-  background: theme.colors.black,
+  background: theme.palette.background.default,
 }));
 export const Logo = styled("img")(({ theme }) => ({
   width: 130,
