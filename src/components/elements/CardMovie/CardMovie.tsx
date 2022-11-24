@@ -1,31 +1,28 @@
 import {IMovieInfo} from "../../../types/movies";
-import {Card, CardMedia, Grid, Stack, IconButton} from "@mui/material";
+import {Card, CardMedia, Grid, IconButton} from "@mui/material";
 import {CardTitle, CardInfo, CardSummary} from "./styles"
-import { PlayCircle, FavoriteOutlined, FavoriteBorderOutlined } from '@mui/icons-material';
-import {syncFavorite} from "../../../services/firebase/favorites";
-import {useContext, useEffect, useState} from "react";
-import {FirebaseContext} from "../../../utils/context";
+import {PlayCircle} from '@mui/icons-material';
+import {MouseEvent, useState} from "react";
+import ModalDetailMovie from "../ModalDetailMovie";
+import MovieFavoriteButton from "../MovieFavoriteButton";
 
 function CardMovie ({movie} : {movie: IMovieInfo}) {
-  const { favorites } = useContext(FirebaseContext);
-  const [liked, setLiked] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  async function handleFavorite () {
-    await syncFavorite(movie)
-    setLiked(!liked)
+  const handleModalOpen = () => setIsModalOpen(true);
+  function handleModalClose (event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation()
+    setIsModalOpen(false)
   }
-
-  useEffect(() => {
-    setLiked(Boolean(favorites.find(favorite => favorite.movieId === movie.id)))
-  }, [favorites])
-
   return (
-    <Card sx={{height: 300, position: 'relative'}}>
+    <Card
+      onClick={handleModalOpen}
+      sx={{height: 300, position: 'relative', cursor: 'pointer'}}>
       <CardMedia
         component="img"
         alt={movie.title}
         height="100%"
-        image={movie.thumbnail}
+        image={movie.backdrop}
       />
       <CardInfo>
         <Grid p={2}>
@@ -35,20 +32,18 @@ function CardMovie ({movie} : {movie: IMovieInfo}) {
           <CardSummary>
             {movie.overview}
           </CardSummary>
-          <Stack direction="row" spacing={0}>
-            <IconButton>
-              <PlayCircle sx={{ fontSize: 40 }} />
-            </IconButton>
-            <IconButton onClick={handleFavorite}>
-              {liked ? (
-                <FavoriteOutlined sx={{ fontSize: 40, color: 'rgb(229, 9, 20)' }} />
-              ) : (
-                <FavoriteBorderOutlined sx={{ fontSize: 40 }} />
-              )}
-            </IconButton>
-          </Stack>
+          <IconButton>
+            <PlayCircle sx={{ fontSize: 40 }} />
+          </IconButton>
+          <MovieFavoriteButton movie={movie}/>
         </Grid>
       </CardInfo>
+
+      <ModalDetailMovie
+        open={isModalOpen}
+        onClose={handleModalClose}
+        movie={movie}
+      />
     </Card>
   )
 }
