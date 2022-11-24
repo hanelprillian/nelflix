@@ -1,8 +1,8 @@
 import {Header, Logo, Container, NavigationMenu, NavigationMenuItem, RightButton} from "./styles"
 import MainLogo from "../../../logo.svg";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useLocation, useNavigate, useRoutes} from "react-router-dom";
 import {Avatar, Button, Menu, MenuItem} from "@mui/material";
-import {useContext, useMemo, useState, MouseEvent} from "react";
+import {useContext, useMemo, useState, MouseEvent, useEffect} from "react";
 import {FirebaseContext} from "../../../utils/context";
 import {logout} from "../../../services/firebase/auth";
 
@@ -19,7 +19,10 @@ const LINKS = [
 
 function MainHeader () {
   const { user } = useContext(FirebaseContext)
+  const location = useLocation();
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isTransparent, setIsTransparent] = useState<boolean>(true);
   const avatarData = useMemo(() => {
     if(!user) {
       return null
@@ -30,7 +33,9 @@ function MainHeader () {
   const isUserMenuOpen = useMemo(() => {
     return Boolean(anchorEl)
   }, [anchorEl])
-  const navigate = useNavigate()
+  const isHomePage = useMemo(() => {
+    return Boolean(location.pathname === '/console')
+  }, [location])
 
   function handleOpenMenu (event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget);
@@ -38,13 +43,31 @@ function MainHeader () {
   function handleCloseMenu () {
     setAnchorEl(null);
   }
+  function handleScroll () {
+    const position = window.pageYOffset;
+    setIsTransparent(true)
+    if(position > 800) {
+      setIsTransparent(false)
+    }
+  }
   async function handleLogout () {
     logout().then(() => {
       navigate(0)
     })
   }
+
+  useEffect(() => {
+    if(isHomePage) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [isHomePage]);
+
   return (
-    <Header>
+    <Header transparent={isTransparent}>
       <Container>
         <Logo src={MainLogo}/>
         <NavigationMenu>

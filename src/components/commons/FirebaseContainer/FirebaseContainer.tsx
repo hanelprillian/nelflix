@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { useEffect, useState, ReactNode } from "react"
-import { db, auth } from "../../../utils/firebase"
+import { auth } from "../../../utils/firebase"
 import { FirebaseContext } from "../../../utils/context"
 import { onAuthStateChanged } from 'firebase/auth';
 import FirebaseCompact from "firebase/compat/index";

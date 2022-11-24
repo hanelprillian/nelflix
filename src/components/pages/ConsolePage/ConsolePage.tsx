@@ -1,5 +1,5 @@
 import ConsoleLayout from "../../layouts/Console/ConsoleLayout";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {
   getNowPlayingMovies,
   getUpcomingMovies,
@@ -11,6 +11,7 @@ import {movieAdapter} from "../../../adapters/movies";
 import {Container, Block, BlockTitle, BlockMovies} from "./styles";
 import CardMovie from "../../elements/CardMovie";
 import {Grid} from "@mui/material";
+import BannerMovie from "../../elements/BannerMovie";
 
 function ConsolePage () {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -18,10 +19,16 @@ function ConsolePage () {
     blockName: string,
     movies: IMovieInfo[]
   }[]>([])
+  const [selectedMovie, setSelectedMovie] = useState<IMovieInfo | null>(null)
 
   useEffect(() => {
     setIsLoading(true)
 
+    async function handleMovieBanner () {
+      const { results } = await (await getPopularMovies()).json()
+      const randomBlocksIndex = getRandomIntInclusive(0, results.length - 1)
+      setSelectedMovie(movieAdapter(results[randomBlocksIndex]))
+    }
     async function handleFetchGenres () {
       await Promise.all([
         getNowPlayingMovies(),
@@ -30,9 +37,8 @@ function ConsolePage () {
         getTopRatedMovies(),
       ]).then(async responses => {
         setBlocks([])
-
-        await responses.forEach(async (response, index) => {
-          const {results} = await response.json();
+        await Promise.all(responses.map(async (response, index) => {
+          const { results } = await response.json();
           let blockName = 'Now Playing'
 
           if(index === 1) {
@@ -46,11 +52,12 @@ function ConsolePage () {
             blockName,
             movies: results.filter((d : any,i : number) => i <= 11).map(movieAdapter)
           }])
+        })).then(() => {
+          setIsLoading(false)
         })
-
-        setIsLoading(false)
       })
     }
+    handleMovieBanner()
     handleFetchGenres()
   }, [])
 
@@ -58,6 +65,9 @@ function ConsolePage () {
     <ConsoleLayout>
       {!isLoading && (
         <>
+          {selectedMovie && (
+            <BannerMovie movie={selectedMovie}></BannerMovie>
+          )}
           <Container>
             {blocks.map(block => (
               <Block key={block.blockName}>
@@ -78,6 +88,12 @@ function ConsolePage () {
       )}
     </ConsoleLayout>
   )
+}
+
+function getRandomIntInclusive(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export default ConsolePage
