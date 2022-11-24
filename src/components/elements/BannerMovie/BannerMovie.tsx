@@ -1,8 +1,6 @@
-import {Grid, IconButton} from "@mui/material";
+import {Grid} from "@mui/material";
 import {IMovieInfo} from "../../../types/movies";
-import {MouseEvent, useContext, useEffect, useState} from "react";
-import {syncFavorite} from "../../../services/firebase/favorites";
-import {FirebaseContext} from "../../../utils/context";
+import {MouseEvent, useState} from "react";
 import {PlayCircle, InfoOutlined} from "@mui/icons-material";
 import {BannerContainer, BannerImage, BannerImageCover, Title, Overview, ButtonContainer, PlayButton, InfoButton} from "./styles";
 import ModalDetailMovie from "../ModalDetailMovie";

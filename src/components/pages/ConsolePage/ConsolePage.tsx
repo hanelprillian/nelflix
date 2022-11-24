@@ -1,5 +1,5 @@
 import ConsoleLayout from "../../layouts/Console/ConsoleLayout";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {
   getNowPlayingMovies,
   getUpcomingMovies,

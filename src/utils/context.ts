@@ -14,6 +14,7 @@ export interface IContext {
 export interface IFirebaseContext {
   user: FirebaseCompact.User | null,
   favorites: IFavoriteMovieInfo[],
+  refreshFavorites: () => void,
   firebaseInitialised: boolean,
 }
 
@@ -27,5 +28,6 @@ export const Context = createContext<IContext>({
 export const FirebaseContext = createContext<IFirebaseContext>({
   user: null,
   favorites: [],
+  refreshFavorites: () => {},
   firebaseInitialised: false,
 })

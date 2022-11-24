@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { useEffect, useState, ReactNode } from "react"
 import { auth } from "../../../utils/firebase"
 import { FirebaseContext } from "../../../utils/context"
@@ -12,14 +11,19 @@ export default function FirebaseContainer({ children } : {children : ReactNode})
   const [firebaseInitialised, setFirebaseInitialised] = useState<boolean>(false)
   const [authUser, setAuthUser] = useState<FirebaseCompact.User | null>(null)
   const [favorites, setFavorites] = useState<IFavoriteMovieInfo[]>([])
+
+  async function handleFetchFavorites () {
+    const getFavoritesData = await getFavorites()
+    setFavorites(getFavoritesData.docs.map(doc => doc.data()))
+  }
+
   useEffect(() => {
     let authSession = () => {}
     let favoriteSession = () => {}
 
     authSession = onAuthStateChanged(auth, async (user : FirebaseCompact.User) => {
       if(user) {
-        const getFavoritesData = await getFavorites()
-        setFavorites(getFavoritesData.docs.map(doc => doc.data()))
+        await handleFetchFavorites()
         setAuthUser(user)
       }
 
@@ -37,6 +41,9 @@ export default function FirebaseContainer({ children } : {children : ReactNode})
       value={{
         user: authUser,
         favorites,
+        refreshFavorites: async () => {
+          await handleFetchFavorites()
+        },
         firebaseInitialised
       }}
     >

@@ -6,12 +6,13 @@ import {FirebaseContext} from "../../../utils/context";
 import {FavoriteBorderOutlined, FavoriteOutlined} from "@mui/icons-material";
 
 function MovieFavoriteButton ({movie} : {movie: IMovieInfo}) {
-  const { favorites } = useContext(FirebaseContext);
+  const { favorites, refreshFavorites } = useContext(FirebaseContext);
   const [liked, setLiked] = useState<boolean>(false);
   async function handleFavorite (event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
     await syncFavorite(movie)
     setLiked(!liked)
+    await refreshFavorites()
   }
   useEffect(() => {
     setLiked(Boolean(favorites.find(favorite => favorite.movieId === movie.id)))

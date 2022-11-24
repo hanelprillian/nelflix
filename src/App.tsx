@@ -12,6 +12,7 @@ import {CssBaseline, PaletteMode} from "@mui/material";
 import {ThemeProvider} from "@mui/material";
 import FirebaseContainer from "./components/commons/FirebaseContainer";
 import ConsolePage from "./pages/console";
+import ConsoleMyListPage from "./pages/console-my-list";
 
 function App() {
   const [theme, setTheme] = useTheme();
@@ -36,6 +37,7 @@ function App() {
               <Route element={<ProtectedRoute/>}>
                 <Route path="/console">
                   <Route index element={<ConsolePage />} />
+                  <Route path="my-list" element={<ConsoleMyListPage />} />
                 </Route>
               </Route>
             </Routes>
