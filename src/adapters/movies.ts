@@ -4,8 +4,8 @@ export function movieAdapter (attributes : any) : IMovieInfo {
   return {
     id: attributes.id,
     title: attributes.title,
-    thumbnail: `${process.env.REACT_APP_TMDB_API_IMG_URL}w500${attributes.poster_path}`,
-    backdrop: `${process.env.REACT_APP_TMDB_API_IMG_URL}w500${attributes.backdrop_path}`,
+    thumbnail: `${process.env.REACT_APP_TMDB_API_IMG_URL}w1280${attributes.poster_path}`,
+    backdrop: `${process.env.REACT_APP_TMDB_API_IMG_URL}w1280${attributes.backdrop_path}`,
     isAdult: attributes.adult,
     overview: attributes.overview,
     voteAverage: attributes.vote_average,

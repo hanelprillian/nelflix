@@ -17,14 +17,14 @@ export async function syncFavorite (movie : IMovieInfo) {
     where('uuid', '==', uuid),
     where('movieId', '==', movie.id),
   )
-
+  const favId = `${uuid}-${movie.id}`
   const favoriteQueryDocs = await getDocs(favoriteQuery)
 
   if(favoriteQueryDocs.docs.length > 0) {
-    return deleteDoc(doc(db, "favorites", `${uuid}-${movie.id}`));
+    return deleteDoc(doc(db, "favorites", favId));
   }
 
-  return setDoc(doc(db, "favorites", `${uuid}-${movie.id}`), {
+  return setDoc(doc(db, "favorites", favId), {
     uuid,
     movieId: movie.id,
     movieData: movie

@@ -10,7 +10,7 @@ import {IMovieInfo} from "../../../types/movies";
 import {movieAdapter} from "../../../adapters/movies";
 import {Container, Block, BlockTitle, BlockMovies} from "./styles";
 import CardMovie from "../../elements/CardMovie";
-import {Grid} from "@mui/material";
+import {Grid, Fade} from "@mui/material";
 import BannerMovie from "../../elements/BannerMovie";
 
 function ConsolePage () {
@@ -64,27 +64,29 @@ function ConsolePage () {
   return (
     <ConsoleLayout>
       {!isLoading && (
-        <>
-          {selectedMovie && (
-            <BannerMovie movie={selectedMovie}></BannerMovie>
-          )}
-          <Container>
-            {blocks.map(block => (
-              <Block key={block.blockName}>
-                <BlockTitle>
-                  {block.blockName}
-                </BlockTitle>
-                <BlockMovies container gap={2} justifyContent="center">
-                  {block.movies.map(movie => (
-                    <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`${block.blockName}-${movie.id}`}>
-                      <CardMovie key={movie.id} movie={movie} />
-                    </Grid>
-                  ))}
-                </BlockMovies>
-              </Block>
-            ))}
-          </Container>
-        </>
+        <Fade in={true}>
+          <div>
+            {selectedMovie && (
+              <BannerMovie movie={selectedMovie}></BannerMovie>
+            )}
+            <Container>
+              {blocks.map(block => (
+                <Block key={block.blockName}>
+                  <BlockTitle>
+                    {block.blockName}
+                  </BlockTitle>
+                  <BlockMovies container gap={2} justifyContent="center">
+                    {block.movies.map(movie => (
+                      <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`${block.blockName}-${movie.id}`}>
+                        <CardMovie key={movie.id} movie={movie} />
+                      </Grid>
+                    ))}
+                  </BlockMovies>
+                </Block>
+              ))}
+            </Container>
+          </div>
+        </Fade>
       )}
     </ConsoleLayout>
   )
