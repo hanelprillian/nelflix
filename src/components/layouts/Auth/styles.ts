@@ -19,6 +19,13 @@ export const CenterBox = styled("div")(({ theme }) => ({
   marginTop: '200px',
   padding: '60px 68px',
   background: theme.palette.mode === 'light' ? 'rgba(255,255,255,.75)' : 'rgba(0,0,0,.75)',
+
+  [theme.breakpoints.down("md")]: {
+    width: '100%',
+    height: '100vh',
+    marginTop: '0',
+    paddingTop: '100px',
+  }
 }));
 export const Title = styled("h2")(({ theme }) => ({
   fontSize: 32,
@@ -31,4 +38,12 @@ export const Logo = styled("img")(({ theme }) => ({
   width: 200,
   marginTop: 10,
   marginLeft: 10,
+
+  [theme.breakpoints.down("md")]: {
+    width: 120,
+    left: 0,
+    right: 0,
+    top: 30,
+    margin: 'auto',
+  }
 }));
