@@ -7,7 +7,7 @@ import {
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
 import useTheme from "./hooks/useTheme";
-import {IContext, Context, FirebaseContext} from "./utils/context";
+import {IContext, Context, FirebaseContext, IFirebaseContext} from "./utils/context";
 import {CssBaseline, PaletteMode} from "@mui/material";
 import {ThemeProvider} from "@mui/material";
 import FirebaseContainer from "./components/commons/FirebaseContainer";
@@ -51,7 +51,7 @@ function App() {
 }
 
 function ProtectedRoute ({ redirectPath = '/' }) {
-  const { firebaseInitialised, user } = useContext(FirebaseContext)
+  const { firebaseInitialised, user } = useContext<IFirebaseContext>(FirebaseContext)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const navigate = useNavigate()
 

@@ -1,4 +1,4 @@
-import {Box, styled, Typography} from "@mui/material";
+import {Box, IconButton, styled} from "@mui/material";
 
 export const ModalBoxContent = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -12,6 +12,11 @@ export const ModalBoxContent = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   background: theme.palette.background.default,
   border: '2px solid #000',
+
+  [theme.breakpoints.down("sm")]: {
+    top: 0,
+    width: '100%',
+  }
 }));
 export const MovieOverview = styled(Box)(({ theme }) => ({
   padding: 20,
@@ -21,4 +26,9 @@ export const MovieOverview = styled(Box)(({ theme }) => ({
     fontSize: '18pt',
     fontWeight: 'bold',
   }
+}));
+export const ButtonBack = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  left: 10,
+  top: 10,
 }));

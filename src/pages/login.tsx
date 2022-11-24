@@ -7,7 +7,6 @@ function Login () {
   const { firebaseInitialised, user } = useContext(FirebaseContext)
   const navigate = useNavigate()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-
   useEffect(() => {
     setIsLoaded(false)
     if(firebaseInitialised) {

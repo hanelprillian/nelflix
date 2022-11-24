@@ -3,6 +3,10 @@ import {Box, Button, styled, Typography} from "@mui/material";
 export const BannerContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   height: 800,
+
+  [theme.breakpoints.down("sm")]: {
+    height: 600,
+  }
 }));
 export const BannerImage = styled('img')(({ theme }) => ({
   width: '100%',
@@ -29,11 +33,19 @@ export const Title = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   lineHeight: 1.1,
   marginBottom: 20,
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: '25pt',
+  }
 }));
 export const Overview = styled(Typography)(({ theme }) => ({
   fontSize: '15pt',
   lineHeight: 1.5,
   marginBottom: 40,
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: '12pt',
+  }
 }));
 export const PlayButton = styled(Button)(({ theme }) => ({
   display: 'flex',
@@ -47,6 +59,11 @@ export const PlayButton = styled(Button)(({ theme }) => ({
   padding: '10px 50px',
   background: 'rgb(229, 9, 20)',
   color: 'white',
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: '12pt',
+    padding: '5px 30px',
+  }
 }));
 export const InfoButton = styled(Button)(({ theme }) => ({
   display: 'flex',
@@ -60,6 +77,11 @@ export const InfoButton = styled(Button)(({ theme }) => ({
   padding: '10px 50px',
   background: 'rgb(89,89,89)',
   color: 'white',
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: '12pt',
+    padding: '5px 30px',
+  }
 }));
 export const ButtonContainer = styled('div')(({ theme }) => ({
   display: 'flex',

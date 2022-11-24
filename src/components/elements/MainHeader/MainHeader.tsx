@@ -1,11 +1,21 @@
-import {Header, Logo, Container, NavigationMenu, NavigationMenuItem, RightButton} from "./styles"
+import {
+  Header,
+  Logo,
+  Container,
+  NavigationMenu,
+  NavigationMenuItem,
+  RightButton,
+  SearchOutlinedIcon,
+  LogoMobile,
+  ButtonSearch
+} from "./styles"
 import MainLogo from "../../../logo.svg";
+import MainMobileLogo from "../../../logo-mobile.svg";
 import {NavLink, useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {Avatar, IconButton, Menu, MenuItem, OutlinedInput, Fade} from "@mui/material";
+import {Avatar, IconButton, Menu, MenuItem, OutlinedInput, Fade, useMediaQuery, Theme} from "@mui/material";
 import {useContext, useMemo, useState, MouseEvent, useEffect, memo} from "react";
 import {FirebaseContext} from "../../../utils/context";
 import {logout} from "../../../services/firebase/auth";
-import {SearchOutlined} from "@mui/icons-material";
 
 const LINKS = [
   {
@@ -26,6 +36,7 @@ function MainHeader () {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isTransparent, setIsTransparent] = useState<boolean>(true);
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const isSmallScreen = useMediaQuery((theme : Theme) => theme.breakpoints.down("md"));
   const avatarData = useMemo(() => {
     if(!user) {
       return null
@@ -86,7 +97,11 @@ function MainHeader () {
   return (
     <Header transparent={isTransparent}>
       <Container>
-        <Logo src={MainLogo}/>
+        <NavLink to="/">
+          <Logo src={MainLogo}/>
+          <LogoMobile src={MainMobileLogo}/>
+        </NavLink>
+
         <NavigationMenu>
           {LINKS.map(link => (
             <NavigationMenuItem key={link.url}>
@@ -111,9 +126,9 @@ function MainHeader () {
               />
             </Fade>
           )}
-          <IconButton onClick={() => setIsSearch(!isSearch)} sx={{marginRight: 2}}>
-            <SearchOutlined sx={{ fontSize: 40 }} />
-          </IconButton>
+          <ButtonSearch onClick={() => setIsSearch(!isSearch)} sx={{marginRight: 2}}>
+            <SearchOutlinedIcon sx={{ fontSize: 40 }} />
+          </ButtonSearch>
           <IconButton
             id="user-account-button"
             aria-controls={isUserMenuOpen ? 'user-account-menu' : undefined}
@@ -121,7 +136,7 @@ function MainHeader () {
             aria-expanded={isUserMenuOpen ? true : undefined}
             onClick={handleOpenMenu}
           >
-            <Avatar sx={{ bgcolor: 'rgb(229, 9, 20)' }} style={{color: '#FFF'}}>
+            <Avatar sx={{ bgcolor: 'rgb(229, 9, 20)', width: isSmallScreen ? 30 : 50, height: isSmallScreen ? 30 : 50 }} style={{color: '#FFF'}}>
               {avatarData}
             </Avatar>
           </IconButton>
@@ -134,6 +149,9 @@ function MainHeader () {
               'aria-labelledby': 'user-account-button',
             }}
           >
+            {isSmallScreen && (
+              <MenuItem onClick={() => navigate('/console/my-list')}>My Favorite</MenuItem>
+            )}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </RightButton>
