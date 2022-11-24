@@ -66,7 +66,7 @@ function ConsolePage () {
                 </BlockTitle>
                 <BlockMovies container gap={2} justifyContent="center">
                   {block.movies.map(movie => (
-                    <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9}>
+                    <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`${block.blockName}-${movie.id}`}>
                       <CardMovie key={movie.id} movie={movie} />
                     </Grid>
                   ))}

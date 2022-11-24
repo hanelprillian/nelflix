@@ -10,3 +10,9 @@ export interface IMovieInfo {
   releaseDate?: string,
   genreIds?: number[],
 }
+
+export interface IFavoriteMovieInfo {
+  movieId: number | string,
+  uuid: string,
+  movieData: IMovieInfo,
+}

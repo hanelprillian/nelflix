@@ -1,8 +1,8 @@
-import {collection, deleteDoc, doc, getDocs, query, setDoc, where} from "firebase/firestore"
+import {collection, deleteDoc, doc, getDocs, query, setDoc, where, onSnapshot} from "firebase/firestore"
 import {auth, db} from "../../utils/firebase";
 import {IMovieInfo} from "../../types/movies";
 
-export async function getFavorite () {
+export async function getFavorites () {
   const uuid = auth.currentUser?.uid
   const favoriteQuery = query(
     collection(db, 'favorites'),
