@@ -1,14 +1,17 @@
 import ConsoleLayout from "../../layouts/Console/ConsoleLayout";
-import {useContext, useEffect, useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Container, Block, BlockTitle, BlockMovies} from "./styles";
-import CardMovie from "../../elements/CardMovie";
 import {Grid, Fade} from "@mui/material";
-import {FirebaseContext} from "../../../utils/context";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {IMovieInfo} from "../../../types/movies";
+import {getSearchMovies} from "../../../services/tmdb/apis";
+import {movieAdapter} from "../../../adapters/movies";
+import CardMovie from "../../elements/CardMovie/CardMovie";
 
 function ConsoleSearchPage () {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [movies, setMovies] = useState<IMovieInfo[]>([])
   const keyword = useMemo(() => {
     if(typeof searchParams.get('keyword') !== 'undefined' && searchParams.get('keyword') !== null) {
       return searchParams.get('keyword')?.toString().trim()
@@ -16,8 +19,18 @@ function ConsoleSearchPage () {
     return ''
   }, [searchParams])
   useEffect(() => {
+    async function handleMovieSearch () {
+      const q = keyword ? keyword : ''
+      const { results } = await (await getSearchMovies(q)).json()
+      setMovies(results.map(movieAdapter))
+    }
+
     if(!keyword) {
       navigate('/console')
+    }
+
+    if(keyword && keyword.length > 2) {
+      handleMovieSearch()
     }
   }, [keyword])
   return (
@@ -30,11 +43,11 @@ function ConsoleSearchPage () {
                 Search: {keyword}
               </BlockTitle>
               <BlockMovies container gap={2} justifyContent="center">
-                {/*{favorites.map(favorite => (*/}
-                {/*  <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`favorite-${favorite.movieId}-${favorite.uuid}`}>*/}
-                {/*    <CardMovie movie={favorite.movieData} />*/}
-                {/*  </Grid>*/}
-                {/*))}*/}
+                {movies.map(movie => (
+                  <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`search-${movie.id}`}>
+                    <CardMovie movie={movie} />
+                  </Grid>
+                ))}
               </BlockMovies>
             </Block>
           </Container>

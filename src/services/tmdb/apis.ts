@@ -23,3 +23,9 @@ export async function getTopRatedMovies () {
   params.append("api_key", config.API_KEY || '')
   return fetch(`${config.BASE_URL}movie/top_rated?${params.toString()}`)
 }
+export async function getSearchMovies (keyword: string) {
+  const params = new URLSearchParams()
+  params.append("api_key", config.API_KEY || '')
+  params.append("query", keyword)
+  return fetch(`${config.BASE_URL}search/movie?${params.toString()}`)
+}
