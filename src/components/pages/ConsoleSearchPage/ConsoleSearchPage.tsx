@@ -25,10 +25,6 @@ function ConsoleSearchPage () {
       setMovies(results.map(movieAdapter))
     }
 
-    if(!keyword) {
-      navigate('/console')
-    }
-
     if(keyword && keyword.length > 2) {
       handleMovieSearch()
     }
@@ -42,6 +38,11 @@ function ConsoleSearchPage () {
               <BlockTitle>
                 Search: {keyword}
               </BlockTitle>
+              {movies.length === 0 && (
+                <BlockTitle>
+                  No Result
+                </BlockTitle>
+              )}
               <BlockMovies container gap={2} justifyContent="center">
                 {movies.map(movie => (
                   <Grid item xs={12} sm={5.8} lg={3.87} xl={2.9} key={`search-${movie.id}`}>
