@@ -18,7 +18,7 @@ function BannerMovie ({movie} : {movie: IMovieInfo}) {
       <BannerImage src={movie.backdrop}/>
       <BannerImageCover>
         <Grid container>
-          <Grid sm={12} md={12} lg={7}>
+          <Grid item sm={12} md={12} lg={7}>
             <Title>
               {movie.title}
             </Title>

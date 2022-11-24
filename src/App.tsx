@@ -13,6 +13,7 @@ import {ThemeProvider} from "@mui/material";
 import FirebaseContainer from "./components/commons/FirebaseContainer";
 import ConsolePage from "./pages/console";
 import ConsoleMyListPage from "./pages/console-my-list";
+import ConsoleSearchPage from "./pages/console-search";
 
 function App() {
   const [theme, setTheme] = useTheme();
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/console">
                   <Route index element={<ConsolePage />} />
                   <Route path="my-list" element={<ConsoleMyListPage />} />
+                  <Route path="search" element={<ConsoleSearchPage />} />
                 </Route>
               </Route>
             </Routes>

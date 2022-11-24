@@ -1,10 +1,11 @@
 import {Header, Logo, Container, NavigationMenu, NavigationMenuItem, RightButton} from "./styles"
 import MainLogo from "../../../logo.svg";
-import {NavLink, useLocation, useNavigate, useRoutes} from "react-router-dom";
-import {Avatar, Button, Menu, MenuItem} from "@mui/material";
-import {useContext, useMemo, useState, MouseEvent, useEffect} from "react";
+import {NavLink, useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {Avatar, IconButton, Menu, MenuItem, OutlinedInput, Fade} from "@mui/material";
+import {useContext, useMemo, useState, MouseEvent, useEffect, memo} from "react";
 import {FirebaseContext} from "../../../utils/context";
 import {logout} from "../../../services/firebase/auth";
+import {SearchOutlined} from "@mui/icons-material";
 
 const LINKS = [
   {
@@ -20,9 +21,11 @@ const LINKS = [
 function MainHeader () {
   const { user } = useContext(FirebaseContext)
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [searchParams,] = useSearchParams();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isTransparent, setIsTransparent] = useState<boolean>(true);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
   const avatarData = useMemo(() => {
     if(!user) {
       return null
@@ -36,12 +39,21 @@ function MainHeader () {
   const isHomePage = useMemo(() => {
     return Boolean(location.pathname === '/console')
   }, [location])
+  const keyword = useMemo(() => {
+    if(typeof searchParams.get('keyword') !== 'undefined' && searchParams.get('keyword') !== null) {
+      return searchParams.get('keyword')?.toString().trim()
+    }
+    return ''
+  }, [searchParams])
 
   function handleOpenMenu (event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget);
   }
   function handleCloseMenu () {
     setAnchorEl(null);
+  }
+  async function handleSearch (keyword: string) {
+    navigate(`/console/search?keyword=${keyword}`)
   }
   function handleScroll () {
     const position = window.pageYOffset;
@@ -65,6 +77,11 @@ function MainHeader () {
       };
     }
   }, [isHomePage]);
+  useEffect(() => {
+    if(keyword) {
+      setIsSearch(true)
+    }
+  }, [keyword])
 
   return (
     <Header transparent={isTransparent}>
@@ -81,7 +98,23 @@ function MainHeader () {
         </NavigationMenu>
 
         <RightButton>
-          <Button
+          {isSearch && (
+            <Fade in
+                  easing={{ enter: 'ease-in', exit: 'ease-out' }}
+                  mountOnEnter unmountOnExit>
+              <OutlinedInput
+                autoFocus
+                value={keyword}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Keyword..."
+                size="small"
+              />
+            </Fade>
+          )}
+          <IconButton onClick={() => setIsSearch(!isSearch)} sx={{marginRight: 2}}>
+            <SearchOutlined sx={{ fontSize: 40 }} />
+          </IconButton>
+          <IconButton
             id="user-account-button"
             aria-controls={isUserMenuOpen ? 'user-account-menu' : undefined}
             aria-haspopup="true"
@@ -91,7 +124,7 @@ function MainHeader () {
             <Avatar sx={{ bgcolor: 'rgb(229, 9, 20)' }} style={{color: '#FFF'}}>
               {avatarData}
             </Avatar>
-          </Button>
+          </IconButton>
           <Menu
             id="user-account-menu"
             anchorEl={anchorEl}
@@ -109,4 +142,4 @@ function MainHeader () {
   )
 }
 
-export default MainHeader
+export default memo(MainHeader)
