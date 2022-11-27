@@ -1,4 +1,5 @@
 import {Box, styled, Typography} from "@mui/material";
+import {PlayCircle} from "@mui/icons-material";
 
 export const CardInfo = styled(Box)(({ theme }) => ({
   cursor: 'pointer',
@@ -12,7 +13,8 @@ export const CardInfo = styled(Box)(({ theme }) => ({
 export const CardTitle = styled(Typography)(({ theme }) => ({
   cursor: 'pointer',
   fontSize: '15pt',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  color:theme.colors.white
 }));
 export const CardSummary = styled(Typography)(({ theme }) => ({
   cursor: 'pointer',
@@ -20,4 +22,9 @@ export const CardSummary = styled(Typography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  color:theme.colors.white
+}));
+export const PlayIcon = styled(PlayCircle)(({ theme }) => ({
+  fontSize: 40,
+  color:theme.colors.white
 }));

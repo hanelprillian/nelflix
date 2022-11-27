@@ -26,13 +26,16 @@ export const BannerImageCover = styled(Box)(({ theme }) => ({
   bottom: 0,
   zIndex: 10,
   height: '100%',
-  background: 'linear-gradient(0deg, rgba(0,0,0,0.8785889355742297) 0%, rgba(0,0,0,1) 2%, rgba(0,0,0,0.665703781512605) 14%, rgba(0,0,0,0.2987570028011205) 43%, rgba(0,0,0,0.11668417366946782) 68%, rgba(0,0,0,0.7441351540616247) 100%)'
+  background: theme.palette.mode === 'dark' ?
+    'linear-gradient(0deg, rgba(0,0,0,0.8785889355742297) 0%, rgba(0,0,0,1) 2%, rgba(0,0,0,0.665703781512605) 14%, rgba(0,0,0,0.2987570028011205) 43%, rgba(0,0,0,0.11668417366946782) 68%, rgba(0,0,0,0.7441351540616247) 100%)' :
+    'linear-gradient(0deg, rgba(0,0,0,0.8785889355742297) 0%, rgba(0,0,0,1) 2%, rgba(0,0,0,0.665703781512605) 14%, rgba(255,255,255,0.2987570028011205) 43%, rgba(255,255,255,0.11668417366946782) 68%, rgba(255,255,255,0.7441351540616247) 100%)'
 }));
 export const Title = styled(Typography)(({ theme }) => ({
   fontSize: '45pt',
   fontWeight: 'bold',
   lineHeight: 1.1,
   marginBottom: 20,
+  color:theme.colors.white,
 
   [theme.breakpoints.down("sm")]: {
     fontSize: '25pt',
@@ -42,6 +45,7 @@ export const Overview = styled(Typography)(({ theme }) => ({
   fontSize: '15pt',
   lineHeight: 1.5,
   marginBottom: 40,
+  color:theme.colors.white,
 
   [theme.breakpoints.down("sm")]: {
     fontSize: '12pt',

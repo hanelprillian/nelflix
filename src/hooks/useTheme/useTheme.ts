@@ -7,7 +7,7 @@ import {ITheme} from "./types";
 export default function useTheme() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState<ITheme['mode']>('dark');
-  const [nodeLocalStorage, setNodeLocalStorage] = useState<ITheme['mode']>('dark');
+  const [nodeLocalStorage, setNodeLocalStorage] = useState<ITheme['mode'] | undefined>(undefined);
 
   useEffect(() => {
     const theme = localStorage.getItem('APP_THEME_CUSTOM_SELECT');
@@ -17,10 +17,15 @@ export default function useTheme() {
   }, []);
 
   useEffect(() => {
+    console.log('nodeLocalStorage', nodeLocalStorage)
+    console.log('prefersDarkMode', prefersDarkMode)
+
     if (!nodeLocalStorage || typeof nodeLocalStorage === 'undefined') {
+      console.log('prefersDarkMode', prefersDarkMode)
+
       setMode(prefersDarkMode ? 'dark' : 'light');
     }
-  }, [prefersDarkMode]);
+  }, [prefersDarkMode, nodeLocalStorage]);
 
   useEffect(() => {
     if (nodeLocalStorage && typeof nodeLocalStorage !== 'undefined') {

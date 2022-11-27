@@ -3,7 +3,7 @@ import {IMovieInfo} from "../../../types/movies";
 import {MouseEvent, useContext, useEffect, useState} from "react";
 import {syncFavorite} from "../../../services/firebase/favorites";
 import {FirebaseContext} from "../../../utils/context";
-import {FavoriteBorderOutlined, FavoriteOutlined} from "@mui/icons-material";
+import {LikedIcon, LikeIcon} from "./styles";
 
 function MovieFavoriteButton ({movie} : {movie: IMovieInfo}) {
   const { favorites, refreshFavorites } = useContext(FirebaseContext);
@@ -20,9 +20,9 @@ function MovieFavoriteButton ({movie} : {movie: IMovieInfo}) {
   return (
     <IconButton onClick={handleFavorite}>
       {liked ? (
-        <FavoriteOutlined sx={{ fontSize: 40, color: 'rgb(229, 9, 20)' }} />
+        <LikedIcon/>
       ) : (
-        <FavoriteBorderOutlined sx={{ fontSize: 40 }} />
+        <LikeIcon />
       )}
     </IconButton>
   )

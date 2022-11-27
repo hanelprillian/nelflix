@@ -1,8 +1,8 @@
 import {Card, CardMedia, Grid, IconButton, Modal} from "@mui/material";
 import {ModalBoxContent,MovieOverview,ButtonBack} from "./styles";
 import {IMovieInfo} from "../../../types/movies";
-import {CardInfo, CardTitle} from "../CardMovie/styles";
-import {PlayCircle,ChevronLeftRounded} from "@mui/icons-material";
+import {CardInfo, CardTitle, PlayIcon} from "../CardMovie/styles";
+import {ChevronLeftRounded} from "@mui/icons-material";
 import MovieFavoriteButton from "../MovieFavoriteButton";
 
 function ModalDetailMovie ({open, onClose, movie} : {open: boolean, onClose: any, movie: IMovieInfo}) {
@@ -34,7 +34,7 @@ function ModalDetailMovie ({open, onClose, movie} : {open: boolean, onClose: any
                 {movie.title}
               </CardTitle>
               <IconButton>
-                <PlayCircle sx={{ fontSize: 40 }} />
+                <PlayIcon/>
               </IconButton>
               <MovieFavoriteButton movie={movie}/>
             </Grid>

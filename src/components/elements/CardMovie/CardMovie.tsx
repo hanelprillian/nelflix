@@ -1,7 +1,6 @@
 import {IMovieInfo} from "../../../types/movies";
 import {Card, CardMedia, Grid, IconButton} from "@mui/material";
-import {CardTitle, CardInfo, CardSummary} from "./styles"
-import {PlayCircle} from '@mui/icons-material';
+import {CardTitle, CardInfo, CardSummary, PlayIcon} from "./styles"
 import {MouseEvent, useState} from "react";
 import ModalDetailMovie from "../ModalDetailMovie";
 import MovieFavoriteButton from "../MovieFavoriteButton";
@@ -33,7 +32,7 @@ function CardMovie ({movie} : {movie: IMovieInfo}) {
             {movie.overview}
           </CardSummary>
           <IconButton>
-            <PlayCircle sx={{ fontSize: 40 }} />
+            <PlayIcon sx={{ fontSize: 40 }} />
           </IconButton>
           <MovieFavoriteButton movie={movie}/>
         </Grid>

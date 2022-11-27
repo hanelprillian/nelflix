@@ -36,6 +36,7 @@ function MainHeader () {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isTransparent, setIsTransparent] = useState<boolean>(true);
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string | null | undefined>('');
   const isSmallScreen = useMediaQuery((theme : Theme) => theme.breakpoints.down("md"));
   const avatarData = useMemo(() => {
     if(!user) {
@@ -50,9 +51,11 @@ function MainHeader () {
   const isHomePage = useMemo(() => {
     return Boolean(location.pathname === '/console')
   }, [location])
-  const keyword = useMemo(() => {
+  const keywordParamValue = useMemo(() => {
     if(typeof searchParams.get('keyword') !== 'undefined' && searchParams.get('keyword') !== null) {
-      return searchParams.get('keyword')?.toString().trim()
+      const q = searchParams.get('keyword')?.toString().trim()
+      setKeyword(q)
+      return q
     }
     return ''
   }, [searchParams])
@@ -65,6 +68,7 @@ function MainHeader () {
   }
   async function handleSearch (keyword: string) {
     navigate(`/console/search?keyword=${keyword}`)
+    setKeyword(keyword)
   }
   function handleScroll () {
     const position = window.pageYOffset;
@@ -89,10 +93,10 @@ function MainHeader () {
     }
   }, [isHomePage]);
   useEffect(() => {
-    if(keyword) {
+    if(keywordParamValue) {
       setIsSearch(true)
     }
-  }, [keyword])
+  }, [keywordParamValue])
 
   return (
     <Header transparent={isTransparent}>
